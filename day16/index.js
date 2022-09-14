@@ -6,6 +6,7 @@ const remained = document.getElementById('remained');
 smallCups.forEach((cup, index) => {
   cup.addEventListener('click', () => highLightCup(index));
 })
+updateBigCup();
 
 function highLightCup(index) {
   if (index === 7 && smallCups[index].classList.contains('full')) index--;
@@ -27,12 +28,17 @@ function updateBigCup() {
   const totalCups = smallCups.length;
   if (fullCups === 0) {
     percentage.style.visibility = 'hidden';
-    percentage.style.height = 0;
+    percentage.style.height = '0';
   } else {
     percentage.style.visibility = 'visible';
     percentage.style.height = `${fullCups / totalCups * 330}px`;
     percentage.innerText = `${fullCups / totalCups * 100}%`;
   }
-  remained.style.visibility = totalCups === fullCups ? 'hidden' : 'visible';
-  remained.style.height = totalCups === fullCups ? 0 : '100%';
+  if (fullCups === totalCups) {
+    remained.style.visibility = 'hidden';
+    remained.style.height = '0';
+  } else {
+    remained.style.visibility = 'visible';
+    liters.innerText = `${2 - (250 * fullCups / 1000)}L`
+  }
 }
